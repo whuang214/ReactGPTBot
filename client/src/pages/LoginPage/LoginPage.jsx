@@ -1,12 +1,10 @@
-import React from 'react';
-import './LoginPage.css';
+import React from "react";
+import "./LoginPage.css";
 
-
-export default function LoginPage(props){
-   
-
-    return (
-      <div>Login Pageeeeee</div>
-      );
+export default function LoginPage() {
+  return (
+    <div className="LoginPage">
+      <h1>Login Page</h1>
+    </div>
+  );
 }
-
