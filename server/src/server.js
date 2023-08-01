@@ -25,7 +25,7 @@ app.use("/api/users", require("./routes/api/users"));
 // "catch all" route
 app.get("/*", function (req, res) {
   // res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  res.send("hello world");
+  res.status(404).json({ msg: "Not Found" });
 });
 
 const port = process.env.PORT || 3001;
