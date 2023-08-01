@@ -11,10 +11,10 @@ export default function WelcomePage() {
         Please log in with an account to proceed
       </div>
       <div className={styles.buttonContainer}>
-        <Button className={styles.button} type="primary" href="/login">
+        <Button className={styles.button} type="ghost" href="/login">
           Login
         </Button>
-        <Button className={styles.button} type="primary" href="/register">
+        <Button className={styles.button} type="ghost" href="/register">
           Register
         </Button>
       </div>

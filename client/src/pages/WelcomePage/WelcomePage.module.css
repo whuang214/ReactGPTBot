@@ -27,14 +27,19 @@
 
 .buttonContainer {
   display: flex;
-  justify-content: space-between;
-  width: 150px;
+  flex-direction: row;
+  justify-content: center;
+  width: 250px;
 }
 
 .button {
-  background-color: #10a37f;
-  border-color: #10a37f;
+  background: #10a37f;
   color: #ffffff;
-  width: 120px;
+  width: 80px;
   margin: 5px;
+}
+
+.button:hover {
+  background-color: #088966;
+  color: #e0e0e0;
 }
