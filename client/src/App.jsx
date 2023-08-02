@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage/LoginPage";
-import SignupPage from "./pages/SignupPage/SignupPage";
+import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
+import RegisterPage from "./pages/AuthPages/RegisterPage/RegisterPage";
 import WelcomePage from "./pages/WelcomePage/WelcomePage";
 
 import userService from "./utils/userService";
@@ -30,7 +30,10 @@ export default function App() {
           path="/login"
           element={<LoginPage onSignupOrLogin={handleSignupOrLogin} />}
         />
-        <Route path="/register" element={<SignupPage />} />
+        <Route
+          path="/register"
+          element={<RegisterPage onSignupOrLogin={handleSignupOrLogin} />}
+        />
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     );
