@@ -1,30 +1,69 @@
 import { Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import userService from "../../../utils/userService";
+
 import styles from "../AuthPage.module.css";
 
 export default function RegisterPage({ onSignupOrLogin }) {
+  const navigate = useNavigate();
+
   const [formObj, setFormObj] = useState({
+    email: "",
     username: "",
     password: "",
     confirmPassword: "",
   });
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    // add registration logic here
+  const onFinish = async (values) => {
+    // console.log("Received values of form: ", values);
+    try {
+      await userService.signup(formObj);
+    } catch (err) {
+      alert(err.message);
+      // console.log(err);
+    }
     onSignupOrLogin();
   };
 
   return (
     <div className={styles.AuthPage}>
-      {" "}
+      <Button
+        onClick={() => navigate("/")}
+        style={{ position: "absolute", top: "10px", left: "10px" }}
+        type="link"
+      >
+        <ArrowLeftOutlined /> Back to Welcome
+      </Button>
       <Form
         name="register_form"
         className={styles.authForm}
         onFinish={onFinish}
       >
         <h2>Register for ChatGPT Clone</h2>
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Email!",
+            },
+          ]}
+        >
+          <Input
+            placeholder="Email"
+            value={formObj.email}
+            onChange={(e) =>
+              setFormObj({
+                ...formObj,
+                email: e.target.value,
+              })
+            }
+          />
+        </Form.Item>
         <Form.Item
           name="username"
           rules={[

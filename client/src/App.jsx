@@ -42,8 +42,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<h1>Home Pageeeeeeeeeee</h1>} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<SignupPage />} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

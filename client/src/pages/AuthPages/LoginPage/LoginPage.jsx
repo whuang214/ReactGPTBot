@@ -1,44 +1,58 @@
 import { Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+
 import { useState } from "react";
-import styles from "../AuthPage.module.css"; // We only need to import the combined styles now.
+import { Link, useNavigate } from "react-router-dom";
+
+import userService from "../../../utils/userService";
+
+import styles from "../AuthPage.module.css";
 
 export default function LoginPage({ onSignupOrLogin }) {
+  const navigate = useNavigate();
   const [formObj, setFormObj] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    // add signup/login logic here
+  const onFinish = async (values) => {
+    // console.log("Received values of form: ", values);
+    try {
+      await userService.login(formObj);
+    } catch (err) {
+      alert(err.message);
+      // console.log(err);
+    }
     onSignupOrLogin();
   };
 
   return (
     <div className={styles.AuthPage}>
-      {" "}
-      {/* Updated to AuthPage */}
       <Form name="login_form" className={styles.authForm} onFinish={onFinish}>
+        <Button
+          onClick={() => navigate("/")}
+          style={{ position: "absolute", top: "10px", left: "10px" }}
+          type="link"
+        >
+          <ArrowLeftOutlined /> Back to Welcome
+        </Button>
         <h2>Login to ChatGPT Clone</h2>
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please input your email!",
             },
           ]}
         >
           <Input
-            placeholder="Username"
-            value={formObj.username}
-            onChange={(
-              e // Fixed the missing parameter
-            ) =>
+            placeholder="Email"
+            value={formObj.email}
+            onChange={(e) =>
               setFormObj({
                 ...formObj,
-                username: e.target.value,
+                email: e.target.value,
               })
             }
           />
