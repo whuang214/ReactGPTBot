@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     username: { type: String, required: true, lowercase: true, unique: true },
     email: { type: String, required: true, lowercase: true, unique: true },
     password: String,
+    chats: [{ type: Schema.Types.ObjectId, ref: "ChatHistory" }],
     photoUrl: String, // string from aws!
   },
   {
