@@ -1,5 +1,5 @@
-import { Configuration, OpenAIApi, CreateCompletionRequest } from "openai";
-import { OPENAI_API_KEY } from "../config/openai";
+const { Configuration, OpenAIApi, CreateCompletionRequest } = require("openai");
+const { OPENAI_API_KEY } = require("../config/openai");
 
 const openai = new OpenAIApi(
   new Configuration({
@@ -7,8 +7,13 @@ const openai = new OpenAIApi(
   })
 );
 
+module.exports = {
+  queryGPT3_5Turbo,
+  queryGPT4,
+};
+
 // Query GPT-3.5 Turbo
-export const queryGPT3_5Turbo = async (messages) => {
+async function queryGPT3_5Turbo(messages) {
   const requestPayload = new CreateCompletionRequest({
     model: "gpt-3.5-turbo",
     messages: messages,
@@ -21,10 +26,10 @@ export const queryGPT3_5Turbo = async (messages) => {
     console.error("Error querying OpenAI's GPT 3.5 Turbo: ", error);
     throw error;
   }
-};
+}
 
 // Query GPT-4
-export const queryGPT4 = async (messages) => {
+async function queryGPT4(messages) {
   const requestPayload = new CreateCompletionRequest({
     model: "gpt-4",
     messages: messages,
@@ -37,4 +42,4 @@ export const queryGPT4 = async (messages) => {
     console.error("Error querying OpenAI's GPT-4: ", error);
     throw error;
   }
-};
+}

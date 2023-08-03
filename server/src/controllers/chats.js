@@ -1,5 +1,4 @@
-import { queryGPT3_5Turbo, queryGPT4 } from "../services/openaiService";
-
+const { queryGPT3_5Turbo, queryGPT4 } = require("../services/openaiService");
 const Chat = require("../models/chat");
 
 module.exports = {
@@ -17,17 +16,29 @@ async function getAllChats(req, res) {
     const chats = await Chat.find({ userID: req.user._id });
     res.status(200).json(chats);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 }
 
 // get a chat by id
 async function getChat(req, res) {
   try {
-    const chat = await Chat.findById(req.body.chatID);
+    const chat = await Chat.findById(req.params.id);
+
+    if (!chat) {
+      return res.status(404).json({ error: "Chat not found." });
+    }
+
+    if (String(chat.userID) !== String(req.user._id)) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to access this chat." });
+    }
+
     res.status(200).json(chat);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ error: err.message });
   }
 }
 
@@ -55,11 +66,12 @@ async function addMessage(req, res) {
     res.status(200).json(chat);
   } catch (err) {
     console.error(err);
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 }
 
 // create a chat
+// what req.body should look like: { userID: userID, title: title }
 async function createChat(req, res) {
   try {
     const { userID, title } = req.body;
@@ -83,11 +95,12 @@ async function createChat(req, res) {
     res.status(201).json(newChat);
   } catch (err) {
     console.error(err);
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 }
 
 // delete a chat
+// req.body = { chatID: chatID }
 async function deleteChat(req, res) {
   try {
     const { chatID } = req.body;
@@ -95,11 +108,24 @@ async function deleteChat(req, res) {
       return res.status(400).json({ error: "Chat ID is required." });
     }
 
+    const chat = await ChatHistory.findById(chatID);
+
+    if (!chat) {
+      return res.status(404).json({ error: "Chat not found." });
+    }
+
+    if (String(chat.userID) !== String(req.user._id)) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to delete this chat." });
+    }
+
+    // If checks pass, delete the chat
     await ChatHistory.findByIdAndRemove(chatID);
 
     res.status(200).json({ message: "Chat deleted successfully." });
   } catch (err) {
     console.error(err);
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 }
