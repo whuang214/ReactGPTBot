@@ -24,7 +24,11 @@ const chatHistorySchema = new Schema(
   { timestamps: true }
 );
 
-const ChatHistory = mongoose.model("ChatHistory", chatHistorySchema);
+const ChatHistory = mongoose.model(
+  "ChatHistory",
+  chatHistorySchema,
+  "chat_histories"
+);
 
 module.exports = {
   ChatHistory,
