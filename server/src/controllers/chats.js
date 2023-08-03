@@ -1,4 +1,4 @@
-const { queryGPT3_5Turbo, queryGPT4 } = require("../services/openaiService");
+const { queryGPT } = require("../services/openaiService");
 const { ChatHistory, Message } = require("../models/chat");
 const mongoose = require("mongoose");
 
@@ -44,7 +44,7 @@ async function getChat(req, res) {
 }
 
 // create a chat
-// what req.body should look like: { userID: userID, title: title }
+// what req.body should look like: { title: title }
 async function createChat(req, res) {
   try {
     const { title } = req.body;
@@ -68,48 +68,53 @@ async function createChat(req, res) {
   }
 }
 
+// add a message to a chat
+// req.body = { chatID: chatID, messageContent: messageContent, model: model }
 async function addMessage(req, res) {
   const model = req.body.model;
 
   try {
-    const chat = await ChatHistory.findById(req.body.chatID);
+    const chat = await ChatHistory.findById(req.body.chatID).populate(
+      "messages"
+    );
     if (!chat) throw new Error("Chat not found.");
 
-    // Create user message and save to Message model
     const userMessage = new Message({
       content: req.body.messageContent,
-      sender: "user",
+      role: "user",
     });
-    await userMessage.save();
-
-    chat.messages.push(userMessage._id);
 
     let gptResponse;
 
-    if (model === "gpt-3.5-turbo") {
-      gptResponse = await queryGPT3_5Turbo([
-        { content: userMessage.content, sender: userMessage.sender },
-      ]);
-    } else if (model === "gpt-4") {
-      gptResponse = await queryGPT4([
-        { content: userMessage.content, sender: userMessage.sender },
-      ]);
-    } else {
-      throw new Error("Invalid model specified.");
+    try {
+      gptResponse = await queryGPT([...chat.messages, userMessage], model);
+
+      if (!gptResponse.content || !gptResponse.role) {
+        throw new Error("Invalid GPT response.");
+      }
+    } catch (error) {
+      console.error(error.message);
+      return res.status(500).json({ error: error.message });
     }
 
-    // Create assistant message and save to Message model
+    await userMessage.save();
+    chat.messages.push(userMessage._id);
+
     const assistantMessage = new Message({
-      content: gptResponse,
-      sender: "assistant",
+      content: gptResponse.content,
+      role: gptResponse.role,
     });
     await assistantMessage.save();
-
     chat.messages.push(assistantMessage._id);
 
     await chat.save();
 
-    res.status(200).json(chat);
+    // only return the chatID, userMessage, and assistantMessage
+    res.status(200).json({
+      chatID: chat._id,
+      userMessage: userMessage,
+      assistantMessage: assistantMessage,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });

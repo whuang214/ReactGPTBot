@@ -1,45 +1,33 @@
-const { Configuration, OpenAIApi, CreateCompletionRequest } = require("openai");
-const { OPENAI_API_KEY } = require("../config/openai");
+const { Configuration, OpenAIApi } = require("openai");
 
-const openai = new OpenAIApi(
-  new Configuration({
-    apiKey: OPENAI_API_KEY,
-  })
-);
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 module.exports = {
-  queryGPT3_5Turbo,
-  queryGPT4,
+  queryGPT,
 };
 
-// Query GPT-3.5 Turbo
-async function queryGPT3_5Turbo(messages) {
-  const requestPayload = new CreateCompletionRequest({
-    model: "gpt-3.5-turbo",
-    messages: messages,
+// Query GPT
+async function queryGPT(messages, model) {
+  // filter messages only have content and role
+  messages = messages.map((message) => {
+    return {
+      content: message.content,
+      role: message.role,
+    };
   });
+  // console.log("messages: ", messages);
 
   try {
-    const response = await openai.createCompletion(requestPayload);
-    return response.data.choices[0]?.text.trim();
+    const response = await openai.createChatCompletion({
+      model: model,
+      messages: messages,
+    });
+    return response.data.choices[0].message;
   } catch (error) {
-    console.error("Error querying OpenAI's GPT 3.5 Turbo: ", error);
-    throw error;
-  }
-}
-
-// Query GPT-4
-async function queryGPT4(messages) {
-  const requestPayload = new CreateCompletionRequest({
-    model: "gpt-4",
-    messages: messages,
-  });
-
-  try {
-    const response = await openai.createCompletion(requestPayload);
-    return response.data.choices[0]?.text.trim();
-  } catch (error) {
-    console.error("Error querying OpenAI's GPT-4: ", error);
-    throw error;
+    console.error("Error querying GPT:", error);
+    console.error(error.message);
   }
 }
