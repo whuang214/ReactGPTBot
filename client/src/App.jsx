@@ -10,7 +10,7 @@ import userService from "./utils/userService";
 
 import "./App.css";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export default function App() {
   const [user, setUser] = useState(userService.getUser());

@@ -16,7 +16,7 @@ export default function ChatPage() {
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <Sidebar
-        onLogout={onLogout}
+        onLogout={handleLogout}
         currentChat={currentChat}
         setCurrentChat={setCurrentChat}
       />
