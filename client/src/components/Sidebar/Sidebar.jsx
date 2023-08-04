@@ -5,7 +5,7 @@ import chatService from "../../utils/chatService";
 import { FaPlus } from "react-icons/fa";
 import styles from "./Sidebar.module.css";
 
-export default function Sidebar({ onLogout, setCurrentChat }) {
+export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
   const [chats, setChats] = useState([]);
 
   async function getChats() {
@@ -17,14 +17,30 @@ export default function Sidebar({ onLogout, setCurrentChat }) {
     getChats();
   }, []);
 
+  function handleChatClick(chat) {
+    console.log(chat);
+    chat ? setCurrentChat(chat._id) : setCurrentChat(null);
+  }
+
   return (
     <nav className={styles.sidebar}>
-      <button className={styles.addChatButton}>
+      <button
+        onClick={() => handleChatClick(null)}
+        className={styles.addChatButton}
+      >
         <FaPlus /> New Chat
       </button>
       <div className={styles.chatHistory}>
         {chats.map((chat) => (
-          <button key={chat._id} className={styles.conversation}>
+          <button
+            key={chat._id}
+            className={
+              chat._id === currentChat
+                ? styles.conversationSelected
+                : styles.conversation
+            }
+            onClick={() => handleChatClick(chat)}
+          >
             {chat.title}
           </button>
         ))}

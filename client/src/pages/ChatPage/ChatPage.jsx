@@ -11,7 +11,11 @@ export default function ChatPage({ onLogout }) {
 
   return (
     <div className={styles.chatContainer}>
-      <Sidebar onLogout={onLogout} setCurrentChat={setCurrentChat} />
+      <Sidebar
+        onLogout={onLogout}
+        currentChat={currentChat}
+        setCurrentChat={setCurrentChat}
+      />
       {currentChat ? <Chat /> : <NewChat />}
     </div>
   );
