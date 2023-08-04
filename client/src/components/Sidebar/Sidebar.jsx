@@ -11,8 +11,8 @@ export default function Sidebar() {
         <FaPlus /> New Chat
       </button>
       <div className={styles.chatHistory}>
-        {/* populate chats here */}
-        Chat History
+        <a className={styles.conversationSelected}>Primary Chat</a>
+        <a className={styles.conversation}>Old Chat</a>
       </div>
     </nav>
   );
