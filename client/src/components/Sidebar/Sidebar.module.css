@@ -1,45 +1,33 @@
 .sidebar {
   flex: 1;
-  background-color: #2c2f3e;
-  padding: 20px;
+  background-color: #202123;
+  padding: 10px;
   max-width: 250px;
+  height: 100vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* firefox scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: #43455b transparent; /* thumb and track color */
 }
-
-/* chrome scrollbar */
-.sidebar::-webkit-scrollbar {
-  width: 8px;
-  background-color: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background-color: #43455b;
-  border-radius: 4px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background-color: #53576b;
-}
-
 .addChatButton {
-  padding: 10px 20px;
-  background-color: transparent;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  color: lightgray;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 12px;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 2.75rem;
+  flex-shrink: 0;
+  flex-grow: 0;
   width: 100%;
+  background-color: transparent;
 }
 
 .addChatButton:hover {
-  background-color: gray;
+  background-color: rgba(107, 114, 128, 0.1); /* hover:bg-gray-500/10 */
   color: #ffffff;
 }
