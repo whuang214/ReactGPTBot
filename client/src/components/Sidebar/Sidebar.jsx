@@ -1,5 +1,7 @@
-import styles from "./Sidebar.module.css";
+import { useState, useEffect } from "react";
+
 import { FaPlus } from "react-icons/fa";
+import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
   // fetch all chats from the database
