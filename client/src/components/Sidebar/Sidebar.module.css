@@ -7,6 +7,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #43455b transparent; /* thumb and track color */
+}
+
+/* chrome scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #43455b;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #53576b;
 }
 
 .addChatButton {
