@@ -4,7 +4,7 @@ import tokenService from "./tokenService";
 
 async function getAllChats() {
   try {
-    const response = await fetch("/api/chats", {
+    const response = await fetch(API_URL, {
       headers: {
         Authorization: `Bearer ${tokenService.getToken()}`,
       },
@@ -18,6 +18,10 @@ async function getAllChats() {
     return chats;
   } catch (error) {
     console.error("Error fetching chats:", error);
-    return []; // no chats
+    return []; // if error occurs return empty array
   }
 }
+
+export default {
+  getAllChats,
+};
