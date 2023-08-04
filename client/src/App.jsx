@@ -12,7 +12,7 @@ import "./App.css";
 
 export default function App() {
   const [user, setUser] = useState(userService.getUser());
-  console.log(user);
+  // console.log(user);
 
   const handleSignupOrLogin = () => {
     setUser(userService.getUser());
