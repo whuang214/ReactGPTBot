@@ -3,10 +3,14 @@ import { FaPlus } from "react-icons/fa";
 
 export default function Sidebar() {
   return (
-    <div className={styles.sidebar}>
+    <nav className={styles.sidebar}>
       <button className={styles.addChatButton}>
         <FaPlus /> New Chat
       </button>
-    </div>
+      <div className={styles.chatHistory}>
+        {/* populate chats here */}
+        Chat History
+      </div>
+    </nav>
   );
 }
