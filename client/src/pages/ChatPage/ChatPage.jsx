@@ -6,7 +6,7 @@ import Chat from "../../components/Chat/Chat";
 
 import styles from "./ChatPage.module.css";
 
-export default function ChatPage() {
+export default function ChatPage(props) {
   // current chat is stored in state
   // if null then display new chat component
 

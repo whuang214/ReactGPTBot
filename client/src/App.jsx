@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<ChatPage />} />
+      <Route path="/" element={<ChatPage onLogout={handleLogout} />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );
