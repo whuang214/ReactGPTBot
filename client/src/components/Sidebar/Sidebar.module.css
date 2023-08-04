@@ -30,7 +30,7 @@
   text-decoration: none;
   cursor: pointer;
   word-break: break-all;
-  font-size: 0.875rem; /* Add this line to keep the text size the same */
+  font-size: 0.875rem;
 }
 
 .addChatButton {
