@@ -3,15 +3,17 @@ import { useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import styles from "./ChatInput.module.css";
 
-export default function ChatInput({ currentChat, onMessageSubmit }) {
+import chatService from "../../utils/chatService";
+
+export default function ChatInput({ currentChat }) {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (message.trim() !== "") {
-      onMessageSubmit(message);
-      setMessage("");
+    if (message.trim() === "") {
+      return;
     }
+    console.log(message);
   };
 
   return (

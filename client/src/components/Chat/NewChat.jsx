@@ -1,8 +1,8 @@
-import styles from "./NewChat.module.css";
+import styles from "./Chat.module.css";
 
 export default function NewChat() {
   return (
-    <div className={styles.newChat}>
+    <div className={styles.chatContainer}>
       <h1
         style={{
           fontWeight: "bold",

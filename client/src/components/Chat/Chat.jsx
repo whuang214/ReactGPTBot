@@ -1,3 +1,5 @@
+import styles from "./Chat.module.css";
+
 export default function Chat() {
-  return <div>Display Chat</div>;
+  return <div className={styles.chatContainer}></div>;
 }
