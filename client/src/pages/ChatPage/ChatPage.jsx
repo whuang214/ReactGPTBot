@@ -8,7 +8,7 @@ import ChatInput from "../../components/Chat/ChatInput";
 import styles from "./ChatPage.module.css";
 
 export default function ChatPage({ onLogout }) {
-  const [currentChat, setCurrentChat] = useState(null); // chat id
+  const [currentChat, setCurrentChat] = useState(null); // chat object
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
@@ -19,7 +19,7 @@ export default function ChatPage({ onLogout }) {
       />
       <div className={styles.chatContainer}>
         {currentChat ? <Chat /> : <NewChat />}
-        <ChatInput />
+        <ChatInput currentChat={currentChat} />
       </div>
     </div>
   );

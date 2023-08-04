@@ -19,7 +19,7 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
 
   function handleChatClick(chat) {
     console.log(chat);
-    chat ? setCurrentChat(chat._id) : setCurrentChat(null);
+    chat ? setCurrentChat(chat) : setCurrentChat(null);
   }
 
   return (

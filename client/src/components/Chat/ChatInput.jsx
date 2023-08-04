@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import styles from "./ChatInput.module.css";
 
-export default function ChatInput({ onMessageSubmit }) {
+export default function ChatInput({ currentChat, onMessageSubmit }) {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
