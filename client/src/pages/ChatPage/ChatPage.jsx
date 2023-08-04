@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { UserContext } from "../../App";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import NewChat from "../../components/Chat/NewChat";
@@ -7,7 +9,8 @@ import ChatInput from "../../components/Chat/ChatInput";
 
 import styles from "./ChatPage.module.css";
 
-export default function ChatPage({ onLogout }) {
+export default function ChatPage() {
+  const { user, handleLogout } = useContext(UserContext);
   const [currentChat, setCurrentChat] = useState(null); // chat object
 
   return (

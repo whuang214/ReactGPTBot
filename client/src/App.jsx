@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
@@ -9,6 +9,8 @@ import ChatPage from "./pages/ChatPage/ChatPage";
 import userService from "./utils/userService";
 
 import "./App.css";
+
+const UserContext = createContext();
 
 export default function App() {
   const [user, setUser] = useState(userService.getUser());
@@ -41,9 +43,11 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<ChatPage onLogout={handleLogout} />} />
-      <Route path="/*" element={<Navigate to="/" />} />
-    </Routes>
+    <UserContext.Provider value={{ user, handleLogout }}>
+      <Routes>
+        <Route path="/" element={<ChatPage />} />
+        <Route path="/*" element={<Navigate to="/" />} />
+      </Routes>
+    </UserContext.Provider>
   );
 }
