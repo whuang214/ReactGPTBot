@@ -4,7 +4,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
 import RegisterPage from "./pages/AuthPages/RegisterPage/RegisterPage";
 import WelcomePage from "./pages/WelcomePage/WelcomePage";
-import NewChatPage from "./pages/NewChatPage/NewChatPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 import userService from "./utils/userService";
 
@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<NewChatPage />} />
+      <Route path="/" element={<ChatPage />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );
