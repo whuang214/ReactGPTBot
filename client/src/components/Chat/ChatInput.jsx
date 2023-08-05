@@ -24,7 +24,7 @@ export default function ChatInput({ currentChat }) {
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           className={styles.chatInput}
-          placeholder="Type a message..."
+          placeholder="Send a message..."
         />
         <button type="submit" className={styles.sendButton}>
           <AiOutlineSend />

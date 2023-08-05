@@ -34,7 +34,7 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
           <button
             key={chat._id}
             className={
-              chat._id === currentChat
+              chat._id === currentChat?._id
                 ? styles.conversationSelected
                 : styles.conversation
             }
