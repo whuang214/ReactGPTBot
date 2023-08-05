@@ -10,6 +10,8 @@ module.exports = {
 };
 
 // Query GPT
+// model can only be one of the following:
+// https://platform.openai.com/docs/models
 async function queryGPT(messages, model) {
   // filter messages only have content and role
   messages = messages.map((message) => {

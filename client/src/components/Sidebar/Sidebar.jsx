@@ -15,7 +15,7 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
 
   useEffect(() => {
     getChats();
-  }, []);
+  }, [currentChat]);
 
   function handleChatClick(chat) {
     chat ? setCurrentChat(chat) : setCurrentChat(null);

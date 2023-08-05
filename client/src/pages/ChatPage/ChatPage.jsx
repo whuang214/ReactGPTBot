@@ -22,7 +22,7 @@ export default function ChatPage() {
       />
       <div className={styles.chatContainer}>
         {currentChat ? <Chat /> : <NewChat />}
-        <ChatInput currentChat={currentChat} />
+        <ChatInput currentChat={currentChat} setCurrentChat={setCurrentChat} />
       </div>
     </div>
   );
