@@ -23,6 +23,28 @@ async function getAllChats() {
   }
 }
 
+// get a chat
+// req.params.id = chatID
+async function getChat(chatID) {
+  try {
+    const response = await fetch(API_URL + chatID, {
+      headers: {
+        Authorization: `Bearer ${tokenService.getToken()}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch chat");
+    }
+
+    const chat = await response.json();
+    return chat;
+  } catch (error) {
+    console.error("Error fetching chat:", error);
+    return { error: error.message };
+  }
+}
+
 // create a chat
 // req.body = { name: "chat name" }
 async function startChat(message) {
@@ -111,4 +133,5 @@ export default {
   startChat,
   deleteChat,
   sendPrompt,
+  getChat,
 };

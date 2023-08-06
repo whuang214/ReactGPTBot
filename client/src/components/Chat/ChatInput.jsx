@@ -14,9 +14,9 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
       return;
     }
 
+    // make a new chat if there isn't one
     let chat;
     if (!currentChat) {
-      // Assuming the startChat creates a new chat and returns its details
       const result = await chatService.startChat("New Chat");
 
       if (result.error) {
@@ -25,14 +25,12 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
       }
 
       chat = result;
-      setCurrentChat(chat); // Set the newly created chat as the current one
+      setCurrentChat(chat);
     } else {
       chat = currentChat;
     }
 
-    console.log("Chat:", chat);
-
-    // Now you can call another function to add the message to the newly created chat or current chat
+    // send a message to the chat
     const promptResult = await chatService.sendPrompt(
       chat._id,
       message,
@@ -45,6 +43,15 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
     }
 
     setMessage(""); // Clear the message input
+
+    // fetch the chat again to get the new messages
+    const updatedChat = await chatService.getChat(chat._id);
+    if (updatedChat.error) {
+      console.error("Error getting chat:", updatedChat.error);
+      return;
+    }
+
+    setCurrentChat(updatedChat);
   };
 
   return (

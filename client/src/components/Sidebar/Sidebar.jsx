@@ -20,8 +20,16 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
     getChats();
   }, [currentChat]);
 
-  function handleChatClick(chat) {
-    chat ? setCurrentChat(chat) : setCurrentChat(null);
+  async function handleChatClick(chat) {
+    // fetch request single chat
+    const updatedChat = await chatService.getChat(chat._id);
+
+    if (updatedChat.error) {
+      console.error("Error getting chat:", updatedChat.error);
+      return;
+    }
+
+    setCurrentChat(updatedChat);
   }
 
   async function handleDeleteChat() {
@@ -36,7 +44,7 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
   return (
     <nav className={styles.sidebar}>
       <button
-        onClick={() => handleChatClick(null)}
+        onClick={() => setCurrentChat(null)}
         className={styles.addChatButton}
       >
         <FaPlus /> New Chat

@@ -24,7 +24,7 @@ async function getAllChats(req, res) {
 // get a chat by id
 async function getChat(req, res) {
   try {
-    const chat = await ChatHistory.findById(req.params.id);
+    const chat = await ChatHistory.findById(req.params.id).populate("messages");
 
     if (!chat) {
       return res.status(404).json({ error: "Chat not found." });
