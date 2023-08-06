@@ -10,6 +10,7 @@ import styles from "./Sidebar.module.css";
 
 export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
   const [chats, setChats] = useState([]);
+  const [editingChatId, setEditingChatId] = useState(null);
 
   async function getChats() {
     const chats = await chatService.getAllChats();
@@ -37,8 +38,15 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
     await chatService.deleteChat(currentChat._id);
     setCurrentChat(null);
   }
-  function handleEditChatTitle() {
-    console.log("Edit: ", currentChat._id);
+
+  function handleEditChatTitle(event, chatId) {
+    event.preventDefault();
+    console.log("Editing: ", chatId);
+    if (editingChatId === chatId) {
+      setEditingChatId(null); // Toggle off editing if the same button is pressed again
+    } else {
+      setEditingChatId(chatId);
+    }
   }
 
   return (
@@ -62,13 +70,23 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
           >
             <div className={styles.chatTitleContainer}>
               <MdChatBubbleOutline size={16} />
-              {chat.title}
+              {editingChatId === chat._id ? (
+                <input
+                  className={styles.chatTitleInput}
+                  type="text"
+                  value={chat.title}
+                  onChange={(e) => handleTitleChange(e, chat._id)}
+                  onBlur={() => saveChatTitle(chat._id)}
+                />
+              ) : (
+                chat.title
+              )}
             </div>
             {chat._id === currentChat?._id && (
               <div className={styles.iconContainer}>
                 <button
                   className={styles.editIcon}
-                  onClick={handleEditChatTitle}
+                  onClick={(event) => handleEditChatTitle(event, chat._id)}
                 >
                   <AiOutlineEdit size={17} />
                 </button>

@@ -69,6 +69,21 @@
   gap: 12px;
 }
 
+.chatTitleInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #888; /* You can adjust this as needed */
+  font-size: 0.9rem; /* Adjust to make it smaller */
+  color: inherit;
+  outline: none;
+  width: 80%; /* Adjust width as needed */
+  transition: border-color 0.2s;
+}
+
+.chatTitleInput:focus {
+  border-color: #555; /* Adjust for focus state */
+}
+
 .iconContainer {
   display: flex;
   justify-content: end;
