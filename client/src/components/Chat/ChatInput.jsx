@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { message as antMessage } from "antd";
 import { AiOutlineSend } from "react-icons/ai";
 import styles from "./ChatInput.module.css";
 
@@ -7,12 +8,22 @@ import chatService from "../../utils/chatService";
 
 export default function ChatInput({ currentChat, setCurrentChat }) {
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isLoading) {
+      return; // don't send multiple messages at once
+    }
     if (message.trim() === "") {
       return;
     }
+
+    setIsLoading(true);
+    antMessage.loading({
+      content: "Making a new chat...",
+      key: "newChat",
+    });
 
     // make a new chat if there isn't one
     let chat;
@@ -25,12 +36,32 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
       }
 
       chat = result;
-      setCurrentChat(chat);
     } else {
       chat = currentChat;
     }
 
-    // send a message to the chat
+    antMessage.destroy("newChat");
+
+    antMessage.loading({
+      content: "Asking ChatGPT...",
+      key: "sendMessage",
+    });
+
+    // add message to the chat locally so UI updates immediately
+    chat.messages.push({
+      message: message,
+      sender: "user",
+    });
+    setCurrentChat(chat);
+
+    antMessage.destroy("sendMessage");
+
+    antMessage.loading({
+      content: "ChatGPT is thinking...",
+      key: "gptResponse",
+    });
+
+    // send a message to the server and get the response
     const promptResult = await chatService.sendPrompt(
       chat._id,
       message,
@@ -42,7 +73,7 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
       return;
     }
 
-    setMessage(""); // Clear the message input
+    setMessage("");
 
     // fetch the chat again to get the new messages
     const updatedChat = await chatService.getChat(chat._id);
@@ -51,7 +82,11 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
       return;
     }
 
+    // sync the current chat with the updated chat
     setCurrentChat(updatedChat);
+
+    setIsLoading(false);
+    antMessage.destroy("gptResponse");
   };
 
   return (
