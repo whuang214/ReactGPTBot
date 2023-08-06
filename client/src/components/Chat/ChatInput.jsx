@@ -48,11 +48,10 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
 
     // add message to the chat locally so UI updates immediately
     setMessage("");
-    chat.messages.push({
-      message: message,
-      sender: "user",
+    setCurrentChat({
+      ...chat,
+      messages: [...chat.messages, { sender: "user", content: message }],
     });
-    setCurrentChat(chat);
 
     antMessage.destroy("sendMessage");
 
