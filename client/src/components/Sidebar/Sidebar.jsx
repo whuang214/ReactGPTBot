@@ -4,6 +4,8 @@ import chatService from "../../utils/chatService";
 
 import { FaPlus } from "react-icons/fa";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { MdChatBubbleOutline } from "react-icons/md";
+
 import styles from "./Sidebar.module.css";
 
 export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
@@ -50,7 +52,10 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
             }
             onClick={() => handleChatClick(chat)}
           >
-            {chat.title}
+            <div className={styles.chatTitleContainer}>
+              <MdChatBubbleOutline size={16} />
+              {chat.title}
+            </div>
             {chat._id === currentChat?._id && (
               <div className={styles.iconContainer}>
                 <button

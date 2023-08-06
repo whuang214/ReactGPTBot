@@ -25,6 +25,7 @@
   align-items: center;
   padding: 15px;
   width: 100%;
+  height: 50px;
   border-radius: 6px;
   color: #fff;
   text-decoration: none;
@@ -60,6 +61,12 @@
 .sidebar .conversation:hover {
   padding-right: 4px;
   background-color: #2a2b32;
+}
+
+.chatTitleContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
 }
 
 .iconContainer {
