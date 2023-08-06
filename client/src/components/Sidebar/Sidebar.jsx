@@ -22,6 +22,15 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
     chat ? setCurrentChat(chat) : setCurrentChat(null);
   }
 
+  async function handleDeleteChat() {
+    // console.log("Delete: ", currentChat._id);
+    await chatService.deleteChat(currentChat._id);
+    setCurrentChat(null);
+  }
+  function handleEditChatTitle() {
+    console.log("Edit: ", currentChat._id);
+  }
+
   return (
     <nav className={styles.sidebar}>
       <button
@@ -44,10 +53,16 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
             {chat.title}
             {chat._id === currentChat?._id && (
               <div className={styles.iconContainer}>
-                <button className={styles.editIcon}>
+                <button
+                  className={styles.editIcon}
+                  onClick={handleEditChatTitle}
+                >
                   <AiOutlineEdit size={17} />
                 </button>
-                <button className={styles.deleteIcon}>
+                <button
+                  className={styles.deleteIcon}
+                  onClick={handleDeleteChat}
+                >
                   <AiOutlineDelete size={17} />
                 </button>
               </div>
