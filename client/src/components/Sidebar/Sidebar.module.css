@@ -54,9 +54,32 @@
 .conversationSelected {
   background-color: #2a2b32;
   transition: padding-right 0.2s;
+  justify-content: space-between;
 }
 
 .sidebar .conversation:hover {
   padding-right: 4px;
   background-color: #2a2b32;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.editIcon,
+.deleteIcon {
+  padding-right: 0;
+  cursor: pointer;
+  color: #999999;
+  transition: color 0.2s;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.editIcon:hover,
+.deleteIcon:hover {
+  color: #ffffff;
 }

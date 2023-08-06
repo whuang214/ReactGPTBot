@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import chatService from "../../utils/chatService";
 
 import { FaPlus } from "react-icons/fa";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import styles from "./Sidebar.module.css";
 
 export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
@@ -31,7 +32,7 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
       </button>
       <div className={styles.chatHistory}>
         {chats.map((chat) => (
-          <button
+          <div
             key={chat._id}
             className={
               chat._id === currentChat?._id
@@ -41,10 +42,18 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
             onClick={() => handleChatClick(chat)}
           >
             {chat.title}
-          </button>
+            {chat._id === currentChat?._id && (
+              <div className={styles.iconContainer}>
+                <button className={styles.editIcon}>
+                  <AiOutlineEdit size={17} />
+                </button>
+                <button className={styles.deleteIcon}>
+                  <AiOutlineDelete size={17} />
+                </button>
+              </div>
+            )}
+          </div>
         ))}
-        {/* <a className={styles.conversationSelected}>Primary Chat</a>
-        <a className={styles.conversation}>Old Chat</a> */}
       </div>
     </nav>
   );
