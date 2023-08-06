@@ -13,11 +13,11 @@ export default function ChatPage() {
   const { user, handleLogout } = useContext(UserContext);
   const [currentChat, setCurrentChat] = useState(null); // chat object
 
-  useEffect(() => {
-    if (currentChat) {
-      console.log("current messages:", currentChat?.messages);
-    }
-  }, [currentChat]);
+  // useEffect(() => {
+  //   if (currentChat) {
+  //     console.log("current messages:", currentChat?.messages);
+  //   }
+  // }, [currentChat]);
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
@@ -27,7 +27,7 @@ export default function ChatPage() {
         setCurrentChat={setCurrentChat}
       />
       <div className={styles.chatContainer}>
-        {currentChat ? <Chat /> : <NewChat />}
+        {currentChat ? <Chat currentChat={currentChat} /> : <NewChat />}
         <ChatInput currentChat={currentChat} setCurrentChat={setCurrentChat} />
       </div>
     </div>

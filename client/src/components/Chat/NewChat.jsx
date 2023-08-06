@@ -2,7 +2,7 @@ import styles from "./Chat.module.css";
 
 export default function NewChat() {
   return (
-    <div className={styles.chatContainer}>
+    <div className={styles.newChat}>
       <h1
         style={{
           fontWeight: "bold",

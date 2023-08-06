@@ -1,7 +1,12 @@
-.chatContainer {
+.newChat {
   flex: 3;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+}
+
+.chatContainer {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
 }

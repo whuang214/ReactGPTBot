@@ -41,13 +41,13 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
     }
 
     antMessage.destroy("newChat");
-
     antMessage.loading({
       content: "Asking ChatGPT...",
       key: "sendMessage",
     });
 
     // add message to the chat locally so UI updates immediately
+    setMessage("");
     chat.messages.push({
       message: message,
       sender: "user",
@@ -72,8 +72,6 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
       console.error("Error sending prompt:", promptResult.error);
       return;
     }
-
-    setMessage("");
 
     // fetch the chat again to get the new messages
     const updatedChat = await chatService.getChat(chat._id);
