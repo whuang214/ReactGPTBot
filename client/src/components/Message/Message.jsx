@@ -1,4 +1,5 @@
 import styles from "../Message/Message.module.css";
+import ReactMarkdown from "react-markdown";
 
 // Placeholder avatars
 const userAvatar = "https://via.placeholder.com/30";
@@ -19,7 +20,7 @@ export default function Message({ message }) {
         alt={`${sender}'s avatar`}
         className={styles.avatar}
       />
-      <span className={styles.message}>{content}</span>
+      <ReactMarkdown className={styles.message}>{content}</ReactMarkdown>
     </div>
   );
 }
