@@ -17,6 +17,7 @@ export default function OptionsPopup({
   setPopupOpen,
   onLogout,
   buttonRef,
+  setCurrentChat,
 }) {
   const [isClearChatConfirmationOpen, setIsClearChatConfirmationOpen] =
     useState(false);
@@ -51,8 +52,9 @@ export default function OptionsPopup({
     toggleClearChatClick();
   };
 
-  const handleClearChats = () => {
-    chatService.deleteAllChats();
+  const handleClearChats = async () => {
+    await chatService.deleteAllChats();
+    setCurrentChat(null);
     toggleClearChatClick();
   };
 

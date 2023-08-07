@@ -52,7 +52,11 @@ export default function Sidebar({ currentChat, setCurrentChat }) {
         onDeleteIconClick={toggleDeleteConfirmation}
       />
 
-      <UserProfile user={user} onLogout={handleLogout} />
+      <UserProfile
+        user={user}
+        onLogout={handleLogout}
+        setCurrentChat={setCurrentChat}
+      />
 
       {showDeleteConfirmation && (
         <ConfimationOverlay

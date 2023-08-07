@@ -6,7 +6,7 @@ import { SlOptions } from "react-icons/sl";
 
 import styles from "./UserProfile.module.css";
 
-export default function UserProfile({ onLogout, user }) {
+export default function UserProfile({ onLogout, user, setCurrentChat }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const buttonRef = useRef(null);
 
@@ -21,6 +21,7 @@ export default function UserProfile({ onLogout, user }) {
         setPopupOpen={setPopupOpen}
         onLogout={onLogout}
         buttonRef={buttonRef}
+        setCurrentChat={setCurrentChat}
       />
       <button
         ref={buttonRef}
