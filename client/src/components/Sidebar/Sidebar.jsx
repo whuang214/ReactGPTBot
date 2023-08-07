@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 
 import SidebarChatList from "./SidebarChatList/SidebarChatList";
 import UserProfile from "./UserProfile/UserProfile";
-import DeleteOverlay from "./DeleteOverlay/DeleteOverlay";
-import SettingsOverlay from "./SetitngsOverlay/SettingsOverlay";
+import ConfimationOverlay from "../ConfirmationOverlay/ConfirmationOverlay";
 
 import chatService from "../../utils/chatService";
 
@@ -19,7 +18,6 @@ export default function Sidebar({
 }) {
   const [chats, setChats] = useState([]);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
 
   async function getChats() {
     const chats = await chatService.getAllChats();
@@ -29,10 +27,6 @@ export default function Sidebar({
   useEffect(() => {
     getChats();
   }, [currentChat]);
-
-  function toggleOptionsPopup() {
-    setShowOptions(!showOptions);
-  }
 
   function toggleDeleteConfirmation() {
     setShowDeleteConfirmation(!showDeleteConfirmation);
@@ -64,26 +58,22 @@ export default function Sidebar({
         onDeleteIconClick={toggleDeleteConfirmation}
       />
 
-      <UserProfile
-        user={user}
-        onLogout={onLogout}
-        onOptionsClick={toggleOptionsPopup}
-      />
+      <UserProfile user={user} onLogout={onLogout} />
 
       {showDeleteConfirmation && (
-        <DeleteOverlay
-          currentChat={currentChat}
-          toggleDeleteConfirmation={toggleDeleteConfirmation}
-          handleDeleteChat={handleDeleteChat}
-        />
-      )}
-
-      {showOptions && (
-        <SettingsOverlay
-          handleEditUser={handleEditUser}
-          handleDeleteAllChats={handleDeleteAllChats}
-          onLogout={onLogout}
-          toggleOptionsPopup={toggleOptionsPopup}
+        <ConfimationOverlay
+          title="Delete Chat?"
+          prompt={
+            <>
+              Are you sure you want to delete{" "}
+              <strong>
+                <em>{currentChat.title}</em>
+              </strong>
+              ?
+            </>
+          }
+          onCancel={toggleDeleteConfirmation}
+          onConfirm={handleDeleteChat}
         />
       )}
     </nav>
