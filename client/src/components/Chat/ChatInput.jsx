@@ -50,7 +50,7 @@ export default function ChatInput({ currentChat, setCurrentChat }) {
     setMessage("");
     setCurrentChat({
       ...chat,
-      messages: [...chat.messages, { sender: "user", content: message }],
+      messages: [...chat.messages, { role: "user", content: message }],
     });
 
     antMessage.destroy("sendMessage");

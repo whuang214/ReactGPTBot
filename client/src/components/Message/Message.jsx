@@ -11,11 +11,11 @@ export default function Message({ message }) {
   return (
     <div
       className={`${styles.messageContainer} ${
-        sender === "user" ? styles.userMessage : styles.botMessageContainer
+        sender === "assistant" ? styles.botMessageContainer : styles.userMessage
       }`}
     >
       <img
-        src={sender === "user" ? userAvatar : botAvatar}
+        src={sender === "assistant" ? botAvatar : userAvatar}
         alt={`${sender}'s avatar`}
         className={styles.avatar}
       />
