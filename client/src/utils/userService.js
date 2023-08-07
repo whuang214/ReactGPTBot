@@ -2,6 +2,7 @@ import tokenService from "./tokenService";
 
 const API_URL = "http://localhost:8000/api/users/";
 
+// user should be form data for signup
 function signup(user) {
   return (
     fetch(API_URL + "signup", {
@@ -17,8 +18,8 @@ function signup(user) {
       // Parameter destructuring!
       .then(({ token }) => tokenService.setToken(token))
   );
-  // The above could have been written as
-  //.then((token) => token.token);
+  //   The above could have been written as
+  //   .then((token) => token.token);
 }
 
 function getUser() {

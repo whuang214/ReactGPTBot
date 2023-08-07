@@ -36,7 +36,7 @@ export default function RegisterPage({ onSignupOrLogin }) {
         const updatedFile = {
           uid: info.file.uid,
           status: info.file.status,
-          name: info.file.name,
+          // name: info.file.name, // will rename to username in backend
           size: info.file.size,
           type: info.file.type,
           thumbUrl: e.target.result,
@@ -78,10 +78,19 @@ export default function RegisterPage({ onSignupOrLogin }) {
   });
 
   const onFinish = async (values) => {
-    // console.log("Received values of form: ", values);
-    // if no file then use the default icon
+    const formData = new FormData();
+    for (let key in formObj) {
+      formData.append(key, formObj[key]);
+    }
+    if (fileList.length > 0) {
+      formData.append("avatar", fileList[0]);
+    } else {
+      // if no file then use the default icon
+      formData.append("avatar", null);
+    }
+
     try {
-      await userService.signup(formObj);
+      await userService.signup(formData);
     } catch (err) {
       alert(err.message);
       // console.log(err);
