@@ -17,6 +17,7 @@ export default function Sidebar({
 }) {
   const [chats, setChats] = useState([]);
   const [editingChatId, setEditingChatId] = useState(null);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   async function getChats() {
     const chats = await chatService.getAllChats();
@@ -39,17 +40,23 @@ export default function Sidebar({
     setCurrentChat(updatedChat);
   }
 
+  function toggleDeleteConfirmation() {
+    setShowDeleteConfirmation(!showDeleteConfirmation);
+  }
+
   async function handleDeleteChat() {
     // console.log("Delete: ", currentChat._id);
     await chatService.deleteChat(currentChat._id);
     setCurrentChat(null);
+    setShowDeleteConfirmation(false);
   }
 
   function handleEditChatTitle(event, chatId) {
     event.preventDefault();
     console.log("Editing: ", chatId);
+    //todo implement editing chat title
     if (editingChatId === chatId) {
-      setEditingChatId(null); // Toggle off editing if the same button is pressed again
+      setEditingChatId(null); // deselect editting chat
     } else {
       setEditingChatId(chatId);
     }
@@ -98,7 +105,7 @@ export default function Sidebar({
                 </button>
                 <button
                   className={styles.deleteIcon}
-                  onClick={handleDeleteChat}
+                  onClick={toggleDeleteConfirmation}
                 >
                   <AiOutlineDelete size={17} />
                 </button>
@@ -123,6 +130,26 @@ export default function Sidebar({
           </button>
         </div>
       </div>
+      {showDeleteConfirmation && (
+        <div className={styles.confirmationOverlay}>
+          <div className={styles.confirmationPopup}>
+            <h2>Delete Chat?</h2>
+            <div
+              style={{
+                borderBottom: "1px solid #4d4d4f",
+              }}
+            ></div>
+            <p>
+              Are you sure you want to delete{" "}
+              <strong>{currentChat.title}</strong>?
+            </p>
+            <div className={styles.buttonsContainer}>
+              <button onClick={handleDeleteChat}>Yes</button>
+              <button onClick={toggleDeleteConfirmation}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
