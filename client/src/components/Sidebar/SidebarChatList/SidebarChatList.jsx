@@ -1,6 +1,6 @@
 import SidebarChat from "../SidebarChat/SidebarChat";
-import styles from "./SidebarChatList.module.css";
 
+import styles from "./SidebarChatList.module.css";
 import scrollingStyles from "../SidebarScrolling.module.css";
 
 export default function SidebarChatList({
