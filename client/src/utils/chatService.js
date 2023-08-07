@@ -128,10 +128,36 @@ async function sendPrompt(chatID, messageContent, model) {
   }
 }
 
+// rename a chat
+// req.body = { chatID: chatID, newTitle: newTitle }
+async function renameChat(chatID, newTitle) {
+  try {
+    const response = await fetch(API_URL + "rename", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenService.getToken()}`,
+      },
+      body: JSON.stringify({ chatID: chatID, newTitle: newTitle }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to rename chat");
+    }
+
+    const chat = await response.json();
+    return chat;
+  } catch (error) {
+    console.error("Error renaming chat:", error);
+    return { error: error.message };
+  }
+}
+
 export default {
   getAllChats,
   startChat,
   deleteChat,
   sendPrompt,
   getChat,
+  renameChat,
 };

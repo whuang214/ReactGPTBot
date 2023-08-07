@@ -39,8 +39,10 @@ export default function SidebarChat({
   async function handleTitleSubmit(event) {
     event.preventDefault();
 
-    // send update request to server here
-    console.log("send update: ", chat._id, chatTitle);
+    // update chat title locally
+    setCurrentChat({ ...currentChat, title: chatTitle });
+    // update chat title in db
+    await chatService.renameChat(chat._id, { title: chatTitle });
 
     setIsEditing(false);
   }

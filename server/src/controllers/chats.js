@@ -8,6 +8,7 @@ module.exports = {
   addMessage,
   createChat,
   deleteChat,
+  renameChat,
 };
 
 // get all chats with userid equal to the user id
@@ -153,4 +154,27 @@ async function deleteChat(req, res) {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
+}
+
+// rename a chat
+// req.body = { chatID: chatID, newTitle: newTitle }
+async function renameChat(req, res) {
+  try {
+    const { chatID, newTitle } = req.body;
+    const renamedChat = await ChatHistory.findByIdAndUpdate(
+      chatID,
+      { title: newTitle.title },
+      { new: true }
+    );
+    res.status(200).json(renamedChat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+// create a title name
+// req.body = { message: message }
+async function createTitleName(req, res) {
+  // TODO: ask the api to create a title name from the message
 }
