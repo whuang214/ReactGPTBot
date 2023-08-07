@@ -11,22 +11,23 @@ import styles from "../AuthPage.module.css";
 export default function RegisterPage({ onSignupOrLogin }) {
   const navigate = useNavigate();
 
+  const [originalFile, setOriginalFile] = useState(null);
   const [fileList, setFileList] = useState([]);
   const [allowFileUpload, setAllowFileUpload] = useState(false);
 
   const onFileChange = (info) => {
-    console.log(info);
     if (!allowFileUpload) {
       return;
     }
     if (info.file.status === "removed") {
       // file removed
+      setOriginalFile(null);
       setFileList([]);
       message.success(`${info.file.name} file removed successfully.`);
       return;
     }
 
-    console.log(info.file);
+    setOriginalFile(info.file);
 
     // generate preview for antd upload list
     if (info.file && info.file instanceof File) {
@@ -82,10 +83,12 @@ export default function RegisterPage({ onSignupOrLogin }) {
     for (let key in formObj) {
       formData.append(key, formObj[key]);
     }
-    if (fileList.length > 0) {
-      formData.append("avatar", fileList[0]);
+    if (originalFile) {
+      // console.log("file found", originalFile);
+      formData.append("avatar", originalFile);
     } else {
       // if no file then use the default icon
+      console.log("no file found");
       formData.append("avatar", null);
     }
 
