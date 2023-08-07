@@ -66,10 +66,7 @@ export default function Sidebar({
           prompt={
             <>
               Are you sure you want to delete{" "}
-              <strong>
-                <em>{currentChat.title}</em>
-              </strong>
-              ?
+              <strong>{currentChat.title}</strong>?
             </>
           }
           onCancel={toggleDeleteConfirmation}
