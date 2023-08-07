@@ -16,7 +16,6 @@ export default function Sidebar({
   setCurrentChat,
 }) {
   const [chats, setChats] = useState([]);
-  const [editingChatId, setEditingChatId] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   async function getChats() {
@@ -33,7 +32,6 @@ export default function Sidebar({
   }
 
   async function handleDeleteChat() {
-    // console.log("Delete: ", currentChat._id);
     await chatService.deleteChat(currentChat._id);
     setCurrentChat(null);
     setShowDeleteConfirmation(false);
