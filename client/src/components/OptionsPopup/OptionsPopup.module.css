@@ -19,15 +19,27 @@
 }
 
 .popupOption {
+  display: flex;
+  gap: 10px;
   cursor: pointer;
   padding: 8px;
   border-radius: 4px;
   font-size: 0.85rem;
   transition: background-color 0.2s;
+  transition: color 0.1s;
 }
 
 .popupOption:hover {
   background-color: #444654;
+}
+
+.clearChatButton {
+  color: #b91c1c;
+}
+
+.clearChatButton:hover {
+  color: white;
+  background-color: #b91c1c;
 }
 
 .seperator {
