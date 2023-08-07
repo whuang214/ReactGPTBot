@@ -232,7 +232,7 @@ export default function RegisterPage({ onSignupOrLogin }) {
               className={styles.uploadButton}
               icon={<UploadOutlined />}
             >
-              Upload User Icon
+              Upload User Icon (Optional)
             </Button>
           </Upload>
         </Form.Item>
