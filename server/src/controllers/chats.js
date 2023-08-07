@@ -15,7 +15,9 @@ module.exports = {
 async function getAllChats(req, res) {
   // could also do by params
   try {
-    const chats = await ChatHistory.find({ userID: req.user._id });
+    const chats = await ChatHistory.find({ userID: req.user._id }).sort({
+      updatedAt: -1,
+    });
     res.status(200).json(chats);
   } catch (err) {
     res.status(500).json({ error: err.message });
