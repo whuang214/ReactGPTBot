@@ -36,10 +36,6 @@ export default function Sidebar({ currentChat, setCurrentChat }) {
     setShowDeleteConfirmation(false);
   }
 
-  async function handleDeleteAllChats() {}
-
-  function handleEditUser() {}
-
   return (
     <nav className={styles.sidebar}>
       <button
