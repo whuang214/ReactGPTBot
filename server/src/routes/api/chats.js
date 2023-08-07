@@ -13,4 +13,5 @@ router.put("/rename", chatController.renameChat); // Add a message to a chat
 router.post("/create", chatController.createChat); // Create a new chat
 router.post("/addMessage", chatController.addMessage); // Add a message to a chat
 router.delete("/delete", chatController.deleteChat); // Delete a chat by id
+router.delete("/deleteAll", chatController.deleteAllChats); // Delete all chats
 module.exports = router;

@@ -9,6 +9,8 @@ module.exports = {
   createChat,
   deleteChat,
   renameChat,
+  createTitleName,
+  deleteAllChats,
 };
 
 // get all chats with userid equal to the user id
@@ -187,6 +189,17 @@ async function createTitleName(req, res) {
     // find the chat by id
     // update the title with the title name
     // return the chat
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+// delete all chats
+async function deleteAllChats(req, res) {
+  try {
+    await ChatHistory.deleteMany({ userID: req.user._id });
+    res.status(200).json({ message: "All chats deleted successfully." });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
