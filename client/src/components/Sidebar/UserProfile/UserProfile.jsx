@@ -6,7 +6,7 @@ import { SlOptions } from "react-icons/sl";
 
 import styles from "./UserProfile.module.css";
 
-export default function UserProfile({ user }) {
+export default function UserProfile({ onLogout, user }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const handleContainerClick = () => {
@@ -15,7 +15,11 @@ export default function UserProfile({ user }) {
 
   return (
     <div className={styles.userProfileContainer}>
-      {isPopupOpen && <OptionsPopup />}
+      <OptionsPopup
+        isPopupOpen={isPopupOpen}
+        setPopupOpen={setPopupOpen}
+        onLogout={onLogout}
+      />
       <button
         onClick={handleContainerClick}
         className={`${styles.containerButton} ${

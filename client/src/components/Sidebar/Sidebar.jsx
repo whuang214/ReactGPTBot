@@ -64,7 +64,11 @@ export default function Sidebar({
         onDeleteIconClick={toggleDeleteConfirmation}
       />
 
-      <UserProfile user={user} onOptionsClick={toggleOptionsPopup} />
+      <UserProfile
+        user={user}
+        onLogout={onLogout}
+        onOptionsClick={toggleOptionsPopup}
+      />
 
       {showDeleteConfirmation && (
         <DeleteOverlay
