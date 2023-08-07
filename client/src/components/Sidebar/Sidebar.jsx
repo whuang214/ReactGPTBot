@@ -144,8 +144,18 @@ export default function Sidebar({
               <strong>{currentChat.title}</strong>?
             </p>
             <div className={styles.buttonsContainer}>
-              <button onClick={handleDeleteChat}>Yes</button>
-              <button onClick={toggleDeleteConfirmation}>No</button>
+              <button
+                className={styles.cancelButton}
+                onClick={toggleDeleteConfirmation}
+              >
+                Cancel
+              </button>
+              <button
+                className={styles.deleteButton}
+                onClick={handleDeleteChat}
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
