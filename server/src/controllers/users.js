@@ -15,44 +15,65 @@ module.exports = {
 // signup function
 // req.body will contain the form data from Postman or from React
 async function signup(req, res) {
+  let hasPhoto;
   // console.log(req.body, req.file, " req.body", "req.file");
 
-  // if no file is uploaded, req.file will be undefined
-  if (!req.file) return res.status(400).json({ msg: "Please upload a file" });
+  // if req.file is undefined, hasPhoto will be false, else true
+  !req.file ? (hasPhoto = false) : (hasPhoto = true);
 
   // create a user based on the incoming data from the form
   const user = new User(req.body);
 
-  // make the filepath unique by adding a uuid to the filename
-  const filePath = `reactChatBot/users/${user._id}/images/profile/${
-    req.file.originalname
-  }-${uuidv4()}`;
+  if (!hasPhoto) {
+    user.photoUrl =
+      "https://sei-pupstagram.s3.amazonaws.com/reactChatBot/placeholders/placeholder-person-square.png";
+  }
 
-  // create the object that we will send to S3
-  const params = { Bucket: BUCKET_NAME, Key: filePath, Body: req.file.buffer };
+  if (hasPhoto) {
+    // make the filepath unique by adding a uuid to the filename
+    const filePath = `reactChatBot/users/${user._id}/images/profile/${
+      req.file.originalname
+    }-${uuidv4()}`;
+
+    // create the object that we will send to S3
+    const params = {
+      Bucket: BUCKET_NAME,
+      Key: filePath,
+      Body: req.file.buffer,
+    };
+
+    try {
+      // make the request to S3
+      const data = await s3.upload(params).promise();
+
+      console.log("===============================");
+      console.log(data, " <- data from aws");
+      console.log("===============================");
+
+      // Set the user's photoUrl to the S3 image URL
+      user.photoUrl = data.Location;
+    } catch (err) {
+      console.log("===============================");
+      console.log(err, " <- error during S3 upload");
+      console.log("===============================");
+      return res.status(400).json({
+        error: "Error during S3 upload, check your console",
+      });
+    }
+  }
 
   try {
-    // make the request to S3
-    const data = await s3.upload(params).promise();
-
-    console.log("===============================");
-    console.log(data, " <- data from aws");
-    console.log("===============================");
-
-    // create a new user object
-    user.photoUrl = data.Location; // add the URL of the image to the user object
-    await user.save(); // save the user to the database
+    // Save the user to the database
+    await user.save();
     const token = createJWT(user); // make a token for the user
     res.json({ token }); // send the token to the client
   } catch (err) {
     console.log("===============================");
-    console.log(err, " <- error during S3 upload or database saving");
+    console.log(err, " <- error during database saving");
     console.log("===============================");
-    res
-      .status(400)
-      .json({
-        error: "Error during S3 upload or database saving, check your console",
-      });
+    res.status(400).json({
+      error: "Error during database saving, check your console",
+    });
   }
 }
 

@@ -88,7 +88,7 @@ export default function RegisterPage({ onSignupOrLogin }) {
       formData.append("avatar", originalFile);
     } else {
       // if no file then use the default icon
-      console.log("no file found");
+      // console.log("no file submitted");
       formData.append("avatar", null);
     }
 
