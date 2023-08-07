@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import SidebarChat from "./SidebarChat";
 import chatService from "../../utils/chatService";
+import { message as antMessage } from "antd";
 
 import { FaPlus } from "react-icons/fa";
 
