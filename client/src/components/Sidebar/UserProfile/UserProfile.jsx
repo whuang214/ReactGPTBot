@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import OptionsPopup from "../../OptionsPopup/OptionsPopup";
 
@@ -8,6 +8,7 @@ import styles from "./UserProfile.module.css";
 
 export default function UserProfile({ onLogout, user }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const buttonRef = useRef(null);
 
   const handleContainerClick = () => {
     setPopupOpen(!isPopupOpen);
@@ -19,8 +20,10 @@ export default function UserProfile({ onLogout, user }) {
         isPopupOpen={isPopupOpen}
         setPopupOpen={setPopupOpen}
         onLogout={onLogout}
+        buttonRef={buttonRef}
       />
       <button
+        ref={buttonRef}
         onClick={handleContainerClick}
         className={`${styles.containerButton} ${
           isPopupOpen ? styles.containerButtonSelected : ""

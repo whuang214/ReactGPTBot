@@ -11,14 +11,22 @@ import { MdOutlineLogout } from "react-icons/md";
 
 import styles from "./OptionsPopup.module.css";
 
-export default function OptionsPopup({ isPopupOpen, setPopupOpen, onLogout }) {
+export default function OptionsPopup({
+  isPopupOpen,
+  setPopupOpen,
+  onLogout,
+  buttonRef,
+}) {
   const [isClearChatConfirmationOpen, setIsClearChatConfirmationOpen] =
     useState(false);
   const popupRef = useRef(null);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
+      if (
+        !buttonRef.current.contains(event.target) &&
+        !popupRef.current.contains(event.target)
+      ) {
         setPopupOpen(false);
       }
     };
