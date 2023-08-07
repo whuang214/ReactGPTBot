@@ -152,6 +152,29 @@ async function renameChat(chatID, newTitle) {
   }
 }
 
+// delete all chats
+async function deleteAllChats() {
+  try {
+    const response = await fetch(API_URL + "deleteAll", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenService.getToken()}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete all chats");
+    }
+
+    const chat = await response.json();
+    return chat;
+  } catch (error) {
+    console.error("Error deleting all chats:", error);
+    return { error: error.message };
+  }
+}
+
 export default {
   getAllChats,
   startChat,
