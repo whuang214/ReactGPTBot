@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../App";
 
 import SidebarChatList from "./SidebarChatList/SidebarChatList";
 import UserProfile from "./UserProfile/UserProfile";
@@ -10,12 +11,9 @@ import { FaPlus } from "react-icons/fa";
 
 import styles from "./Sidebar.module.css";
 
-export default function Sidebar({
-  user,
-  onLogout,
-  currentChat,
-  setCurrentChat,
-}) {
+export default function Sidebar({ currentChat, setCurrentChat }) {
+  const { user, handleLogout } = useContext(UserContext);
+
   const [chats, setChats] = useState([]);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
@@ -58,7 +56,7 @@ export default function Sidebar({
         onDeleteIconClick={toggleDeleteConfirmation}
       />
 
-      <UserProfile user={user} onLogout={onLogout} />
+      <UserProfile user={user} onLogout={handleLogout} />
 
       {showDeleteConfirmation && (
         <ConfimationOverlay

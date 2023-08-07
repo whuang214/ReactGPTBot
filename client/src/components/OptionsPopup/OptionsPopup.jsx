@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 import ConfirmationOverlay from "../ConfirmationOverlay/ConfirmationOverlay";
+import chatService from "../../utils/chatService";
 
 import {
   AiOutlineUser,
@@ -51,7 +52,8 @@ export default function OptionsPopup({
   };
 
   const handleClearChats = () => {
-    // TODO: Clear chats
+    chatService.deleteAllChats();
+    toggleClearChatClick();
   };
 
   return (

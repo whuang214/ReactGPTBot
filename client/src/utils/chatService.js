@@ -182,4 +182,5 @@ export default {
   sendPrompt,
   getChat,
   renameChat,
+  deleteAllChats,
 };
