@@ -36,7 +36,7 @@ export default function LoginPage({ onSignupOrLogin }) {
         >
           <ArrowLeftOutlined /> Back to Welcome
         </Button>
-        <h2>Login to ChatGPT Clone</h2>
+        <h2>Login to ReactGPTBot</h2>
         <Form.Item
           name="email"
           rules={[
@@ -47,8 +47,11 @@ export default function LoginPage({ onSignupOrLogin }) {
           ]}
         >
           <Input
+            type="email"
+            className={styles.Input}
             placeholder="Email"
             value={formObj.email}
+            bordered={false}
             onChange={(e) =>
               setFormObj({
                 ...formObj,
@@ -66,9 +69,12 @@ export default function LoginPage({ onSignupOrLogin }) {
             },
           ]}
         >
-          <Input.Password
+          <Input
+            type="password"
+            className={styles.Input}
             placeholder="Password"
             value={formObj.password}
+            bordered={false}
             onChange={(e) =>
               setFormObj({
                 ...formObj,

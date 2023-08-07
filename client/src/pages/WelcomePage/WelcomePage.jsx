@@ -5,7 +5,7 @@ import styles from "./WelcomePage.module.css";
 export default function WelcomePage() {
   return (
     <div className={styles.centeredContainer}>
-      <div className={styles.title}>Welcome to ChatGPT-Clone</div>
+      <div className={styles.title}>Welcome to ReactGPTBot</div>
       <div className={styles.subtitle}>By William Huang</div>
       <div className={styles.instructions}>
         Please log in with an account to proceed

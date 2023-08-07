@@ -43,7 +43,7 @@ export default function RegisterPage({ onSignupOrLogin }) {
         className={styles.authForm}
         onFinish={onFinish}
       >
-        <h2>Register for ChatGPT Clone</h2>
+        <h2>Register for ReactChatBot</h2>
         <Form.Item
           name="email"
           rules={[
@@ -54,7 +54,10 @@ export default function RegisterPage({ onSignupOrLogin }) {
           ]}
         >
           <Input
+            className={styles.Input}
+            type="email"
             placeholder="Email"
+            bordered={false}
             value={formObj.email}
             onChange={(e) =>
               setFormObj({
@@ -74,7 +77,10 @@ export default function RegisterPage({ onSignupOrLogin }) {
           ]}
         >
           <Input
+            className={styles.Input}
+            type="text"
             placeholder="Username"
+            bordered={false}
             value={formObj.username}
             onChange={(e) =>
               setFormObj({
@@ -93,8 +99,11 @@ export default function RegisterPage({ onSignupOrLogin }) {
             },
           ]}
         >
-          <Input.Password
+          <Input
+            className={styles.Input}
+            type="password"
             placeholder="Password"
+            bordered={false}
             value={formObj.password}
             onChange={(e) =>
               setFormObj({
@@ -121,8 +130,11 @@ export default function RegisterPage({ onSignupOrLogin }) {
             }),
           ]}
         >
-          <Input.Password
+          <Input
+            className={styles.Input}
+            type="password"
             placeholder="Confirm Password"
+            bordered={false}
             value={formObj.confirmPassword}
             onChange={(e) =>
               setFormObj({
