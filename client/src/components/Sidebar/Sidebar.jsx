@@ -4,10 +4,10 @@ import SidebarChat from "./SidebarChat";
 import chatService from "../../utils/chatService";
 
 import { FaPlus } from "react-icons/fa";
-
 import { SlOptions } from "react-icons/sl";
 
 import styles from "./Sidebar.module.css";
+import scrollingStyles from "./SidebarScrolling.module.css";
 
 export default function Sidebar({
   user,
@@ -47,7 +47,7 @@ export default function Sidebar({
       >
         <FaPlus /> New Chat
       </button>
-      <div className={styles.chatHistory}>
+      <div className={`${styles.chatHistory} ${scrollingStyles.chatHistory}`}>
         {chats.map((chat) => (
           <SidebarChat
             key={chat._id}
