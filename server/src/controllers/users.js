@@ -2,11 +2,17 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 
+const { v4: uuidv4 } = require("uuid");
+const S3 = require("aws-sdk/clients/s3");
+const s3 = new S3();
+
 module.exports = {
   signup,
   login,
 };
 
+// signup function
+// req.body will contain the form data from Postman or from React
 async function signup(req, res) {
   const user = new User(req.body);
   try {
