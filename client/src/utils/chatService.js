@@ -49,7 +49,6 @@ async function getChat(chatID) {
 // req.body = { name: "chat name" }
 async function startChat(message) {
   // make a POST request to the server to API_URL + "create" with the title
-  // make a POST request to the server to API_URL + "addMessage" for the message
   try {
     const response = await fetch(API_URL + "create", {
       method: "POST",

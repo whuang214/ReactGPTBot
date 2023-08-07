@@ -176,7 +176,19 @@ async function renameChat(req, res) {
 }
 
 // create a title name
-// req.body = { message: message }
+// req.body = { chatID: chatID, message: message }
 async function createTitleName(req, res) {
-  // TODO: ask the api to create a title name from the message
+  try {
+    const { message } = req.body;
+    const prompt = `Provide a just the concise title for a chat conversation based on the following message (no quotes please): ${message}`;
+    const titleName = await queryGPT(prompt, "gpt-3.5-turbo");
+
+    // TODO
+    // find the chat by id
+    // update the title with the title name
+    // return the chat
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
 }
