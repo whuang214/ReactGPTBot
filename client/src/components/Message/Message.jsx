@@ -1,9 +1,8 @@
 import styles from "../Message/Message.module.css";
 import ReactMarkdown from "react-markdown";
 
-// Placeholder avatars
 const userAvatar = "https://via.placeholder.com/30";
-const botAvatar = "https://via.placeholder.com/30";
+const botAvatar = "../../public/botIcon.png";
 
 export default function Message({ message }) {
   const sender = message.role;

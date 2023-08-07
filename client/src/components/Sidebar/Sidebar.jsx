@@ -5,10 +5,16 @@ import chatService from "../../utils/chatService";
 import { FaPlus } from "react-icons/fa";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdChatBubbleOutline } from "react-icons/md";
+import { SlOptions } from "react-icons/sl";
 
 import styles from "./Sidebar.module.css";
 
-export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
+export default function Sidebar({
+  user,
+  onLogout,
+  currentChat,
+  setCurrentChat,
+}) {
   const [chats, setChats] = useState([]);
   const [editingChatId, setEditingChatId] = useState(null);
 
@@ -100,6 +106,22 @@ export default function Sidebar({ onLogout, currentChat, setCurrentChat }) {
             )}
           </div>
         ))}
+      </div>
+
+      <div className={styles.userProfileContainer}>
+        <div className={styles.avatarContainer}>
+          <img
+            className={styles.userAvatar}
+            src="https://via.placeholder.com/30"
+            alt="User"
+          />
+        </div>
+        <div className={styles.userEmail}>{user.email}</div>
+        <div className={styles.optionsButton}>
+          <button className={styles.threeDotsButton}>
+            <SlOptions />
+          </button>
+        </div>
       </div>
     </nav>
   );
