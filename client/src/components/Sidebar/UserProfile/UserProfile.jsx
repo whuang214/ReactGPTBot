@@ -31,11 +31,7 @@ export default function UserProfile({ onLogout, user, setCurrentChat }) {
         }`}
       >
         <div className={styles.avatarContainer}>
-          <img
-            className={styles.userAvatar}
-            src="https://via.placeholder.com/30"
-            alt="User"
-          />
+          <img className={styles.userAvatar} src={user.photoUrl} alt="User" />
         </div>
         <div className={styles.userEmail}>{user.email}</div>
         <div className={styles.optionsButton}>
