@@ -13,12 +13,6 @@ export default function ChatPage() {
   const { user, handleLogout } = useContext(UserContext);
   const [currentChat, setCurrentChat] = useState(null); // chat object
 
-  // useEffect(() => {
-  //   if (currentChat) {
-  //     console.log("current messages:", currentChat?.messages);
-  //   }
-  // }, [currentChat]);
-
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <Sidebar
