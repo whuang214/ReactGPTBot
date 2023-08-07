@@ -19,6 +19,7 @@ export default function SidebarChat({
 
   const chatRef = useRef(null);
 
+  // Set current chat when user clicks on chat
   async function handleChatClick() {
     const updatedChat = await chatService.getChat(chat._id);
 
@@ -30,12 +31,14 @@ export default function SidebarChat({
     setCurrentChat(updatedChat);
   }
 
+  // Open edit form when user clicks on edit icon
   function handleEditChatTitle(event) {
     event.preventDefault();
     if (isEditing) return;
     setIsEditing(true);
   }
 
+  // Update chat title in db when user submits edit form
   async function handleTitleSubmit(event) {
     event.preventDefault();
 

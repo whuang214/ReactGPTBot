@@ -40,7 +40,11 @@ export default function Sidebar({ currentChat, setCurrentChat }) {
     <nav className={styles.sidebar}>
       <button
         onClick={() => setCurrentChat(null)}
-        className={styles.addChatButton}
+        className={`${
+          currentChat
+            ? `${styles.addChatButton} ${styles.addChatButtonInactive}`
+            : `${styles.addChatButton} ${styles.addChatButtonActive}`
+        }`}
       >
         <FaPlus /> New Chat
       </button>

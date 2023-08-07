@@ -11,7 +11,7 @@ export default function NewChat() {
           marginBottom: "20vh",
         }}
       >
-        ChatGPT Clone
+        ReactGPTBot
       </h1>
     </div>
   );
