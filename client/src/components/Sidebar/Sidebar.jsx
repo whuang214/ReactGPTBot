@@ -39,17 +39,6 @@ export default function Sidebar({
     setShowDeleteConfirmation(false);
   }
 
-  function handleEditChatTitle(event, chatId) {
-    event.preventDefault();
-    console.log("Editing: ", chatId);
-    //todo implement editing chat title
-    if (editingChatId === chatId) {
-      setEditingChatId(null); // deselect editting chat
-    } else {
-      setEditingChatId(chatId);
-    }
-  }
-
   return (
     <nav className={styles.sidebar}>
       <button
