@@ -207,6 +207,7 @@ export default function RegisterPage({ onSignupOrLogin }) {
 
         <Form.Item>
           <Upload
+            className={styles.uploadListItem}
             listType="picture"
             showUploadList={true}
             maxCount={1}
@@ -214,7 +215,13 @@ export default function RegisterPage({ onSignupOrLogin }) {
             onChange={onFileChange}
             fileList={fileList}
           >
-            <Button icon={<UploadOutlined />}>Upload User Icon</Button>
+            <Button
+              type="ghost"
+              className={styles.uploadButton}
+              icon={<UploadOutlined />}
+            >
+              Upload User Icon
+            </Button>
           </Upload>
         </Form.Item>
         <Form.Item>

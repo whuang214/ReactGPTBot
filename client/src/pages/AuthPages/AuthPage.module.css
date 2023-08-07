@@ -35,7 +35,7 @@
 .Input:focus {
   outline: none;
   border: none;
-  background-color: transparent;
+  background-color: #52566d;
   border: 1px solid #63697f;
 }
 
@@ -68,4 +68,28 @@
 
 .switchLink a:hover {
   text-decoration: underline;
+}
+
+.uploadListItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.uploadButton {
+  width: 100%;
+  background: #343541;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.uploadButton:hover {
+  background-color: #2a2b35;
+  color: #e0e0e0;
 }
