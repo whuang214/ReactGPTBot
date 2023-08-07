@@ -34,7 +34,7 @@ export default function LoginPage({ onSignupOrLogin }) {
           style={{ position: "absolute", top: "10px", left: "10px" }}
           type="link"
         >
-          <ArrowLeftOutlined /> Back to Welcome
+          <ArrowLeftOutlined /> Back
         </Button>
         <h2>Login to ReactGPTBot</h2>
         <Form.Item

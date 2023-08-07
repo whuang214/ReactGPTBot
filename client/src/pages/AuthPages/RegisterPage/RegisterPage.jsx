@@ -36,7 +36,7 @@ export default function RegisterPage({ onSignupOrLogin }) {
         style={{ position: "absolute", top: "10px", left: "10px" }}
         type="link"
       >
-        <ArrowLeftOutlined /> Back to Welcome
+        <ArrowLeftOutlined /> Back
       </Button>
       <Form
         name="register_form"
