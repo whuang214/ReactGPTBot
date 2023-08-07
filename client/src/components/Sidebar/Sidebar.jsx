@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
+import SidebarChat from "./SidebarChat";
 import chatService from "../../utils/chatService";
 
 import { FaPlus } from "react-icons/fa";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { MdChatBubbleOutline } from "react-icons/md";
+
 import { SlOptions } from "react-icons/sl";
 
 import styles from "./Sidebar.module.css";
@@ -27,18 +27,6 @@ export default function Sidebar({
   useEffect(() => {
     getChats();
   }, [currentChat]);
-
-  async function handleChatClick(chat) {
-    // fetch request single chat
-    const updatedChat = await chatService.getChat(chat._id);
-
-    if (updatedChat.error) {
-      console.error("Error getting chat:", updatedChat.error);
-      return;
-    }
-
-    setCurrentChat(updatedChat);
-  }
 
   function toggleDeleteConfirmation() {
     setShowDeleteConfirmation(!showDeleteConfirmation);
@@ -72,46 +60,13 @@ export default function Sidebar({
       </button>
       <div className={styles.chatHistory}>
         {chats.map((chat) => (
-          <div
+          <SidebarChat
             key={chat._id}
-            className={
-              chat._id === currentChat?._id
-                ? styles.conversationSelected
-                : styles.conversation
-            }
-            onClick={() => handleChatClick(chat)}
-          >
-            <div className={styles.chatTitleContainer}>
-              <MdChatBubbleOutline size={16} />
-              {editingChatId === chat._id ? (
-                <input
-                  className={styles.chatTitleInput}
-                  type="text"
-                  value={chat.title}
-                  onChange={(e) => handleTitleChange(e, chat._id)}
-                  onBlur={() => saveChatTitle(chat._id)}
-                />
-              ) : (
-                chat.title
-              )}
-            </div>
-            {chat._id === currentChat?._id && (
-              <div className={styles.iconContainer}>
-                <button
-                  className={styles.editIcon}
-                  onClick={(event) => handleEditChatTitle(event, chat._id)}
-                >
-                  <AiOutlineEdit size={17} />
-                </button>
-                <button
-                  className={styles.deleteIcon}
-                  onClick={toggleDeleteConfirmation}
-                >
-                  <AiOutlineDelete size={17} />
-                </button>
-              </div>
-            )}
-          </div>
+            chat={chat}
+            currentChat={currentChat}
+            setCurrentChat={setCurrentChat}
+            onDeleteIconClick={toggleDeleteConfirmation}
+          />
         ))}
       </div>
 
