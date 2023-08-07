@@ -2,7 +2,7 @@ import styles from "../Message/Message.module.css";
 import ReactMarkdown from "react-markdown";
 
 const userAvatar = "https://via.placeholder.com/30";
-const botAvatar = "../../public/botIcon.png";
+const botAvatar = "/botIcon.png";
 
 export default function Message({ message }) {
   const sender = message.role;

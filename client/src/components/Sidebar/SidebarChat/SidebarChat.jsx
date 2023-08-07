@@ -3,9 +3,9 @@ import { useState, useRef, useEffect } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdChatBubbleOutline } from "react-icons/md";
 
-import chatService from "../../utils/chatService";
+import chatService from "../../../utils/chatService";
 
-import styles from "./Sidebar.module.css";
+import styles from "./SidebarChat.module.css";
 
 export default function SidebarChat({
   chat,
