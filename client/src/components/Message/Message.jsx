@@ -1,10 +1,9 @@
 import styles from "../Message/Message.module.css";
 import ReactMarkdown from "react-markdown";
 
-const userAvatar = "https://via.placeholder.com/30";
 const botAvatar = "/botIcon.png";
 
-export default function Message({ message }) {
+export default function Message({ userPhoto, message }) {
   const sender = message.role;
   const content = message.content;
 
@@ -15,7 +14,7 @@ export default function Message({ message }) {
       }`}
     >
       <img
-        src={sender === "assistant" ? botAvatar : userAvatar}
+        src={sender === "assistant" ? botAvatar : userPhoto}
         alt={`${sender}'s avatar`}
         className={styles.avatar}
       />
