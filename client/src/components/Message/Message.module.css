@@ -1,17 +1,42 @@
-.messageContainer {
+.messsageWrapper {
   display: flex;
-  padding: 20px;
-  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #2b2c34;
   border-top: 1px solid #2b2c34;
+  display: flex;
+  color: #fff;
 }
 
-.botMessageContainer {
+.botMessageWrapper {
   background-color: #444654;
+}
+
+.messageContainer {
+  display: flex;
+  padding: 1rem;
+  gap: 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+/* take up more space with fullscreened */
+@media (min-width: 1024px) {
+  .messageContainer {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .message {
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.5rem;
+}
+
+.message code {
+  white-space: pre-wrap;
 }
 
 .avatar {

@@ -9,16 +9,20 @@ export default function Message({ userPhoto, message }) {
 
   return (
     <div
-      className={`${styles.messageContainer} ${
-        sender === "assistant" ? styles.botMessageContainer : styles.userMessage
-      }`}
+      className={
+        sender === "assistant"
+          ? styles.botMessageWrapper
+          : styles.messageWrapper
+      }
     >
-      <img
-        src={sender === "assistant" ? botAvatar : userPhoto}
-        alt={`${sender}'s avatar`}
-        className={styles.avatar}
-      />
-      <ReactMarkdown className={styles.message}>{content}</ReactMarkdown>
+      <div className={styles.messageContainer}>
+        <img
+          src={sender === "assistant" ? botAvatar : userPhoto}
+          alt={`${sender}'s avatar`}
+          className={styles.avatar}
+        />
+        <ReactMarkdown className={styles.message}>{content}</ReactMarkdown>
+      </div>
     </div>
   );
 }
