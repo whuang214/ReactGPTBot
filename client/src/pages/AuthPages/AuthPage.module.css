@@ -32,11 +32,14 @@
   color: #a0a3b1;
 }
 
+.Input:hover {
+  border: 1px solid #63697f;
+}
+
 .Input:focus {
   outline: none;
   border: none;
   background-color: #52566d;
-  border: 1px solid #63697f;
 }
 
 .authFormButton {
