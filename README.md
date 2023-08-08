@@ -25,7 +25,7 @@ To experience the features of ReactGPTBot, follow the links below:
 
 Future enhancements planned for ReactGPTBot include:
 
-- **Model Selection**: Allow users to interact with different AI personalities.
 - **Stream Integration**: Explore the `stream: true` option on the OpenAI API for a real-time user experience via Websocket.
+- **Allow users to interact with different ChatGPT models**: Users will have the option to choose from various ChatGPT models provided by the OpenAI API, such as GPT-4, GPT-3.5, etc., to cater to their specific needs and preferences.
 - **Automatic Chat Naming**: Implement a feature that automatically names chats based on context or content.
 - **More Features**: For additional planned features and updates, check out the [Trello Board](https://trello.com/b/0EzkwDVg/reactgptbot-user-stories).
