@@ -1,6 +1,6 @@
 # ReactGPTBot
 
-**ReactGPTBot** is an interactive chatbot application that provides users with the incredible capabilities of OpenAI's ChatGPT technology to your fingertips. Leveraging the power of React.js, this project ensures a seamless and responsive user experience, making it easy to engage in dynamic and natural conversations with the AI language model.
+**ReactGPTBot** is an interactive chatbot application that provides users with the incredible capabilities of OpenAI's ChatGPT technology at your fingertips. Built from scratch using React.js, this project ensures a seamless and responsive user experience, making it easy to engage in dynamic and natural conversations with the AI language model.
 
 ## Screenshot(s)
 
