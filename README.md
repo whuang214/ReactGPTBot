@@ -11,7 +11,8 @@
 - **Frontend**: React.js
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB with Mongoose
-- **Authentication**: bcrypt
+- **Authentication**: JWT (JSON Web Tokens) with bcrypt for password hashing
+- **Image Uploads**: Multer (for handling image uploads) + Amazon S3 (for storing the uploaded images)
 - **APIs**: [OpenAI API](https://beta.openai.com/docs/api-reference/introduction)
 
 ## Getting Started
