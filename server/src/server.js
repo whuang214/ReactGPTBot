@@ -8,13 +8,10 @@ const favicon = require("serve-favicon");
 
 require("./config/database");
 
-// Require controllers here
-
 const app = express();
 
-// add in when the app is ready to be deployed
-// app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
-app.use(logger("dev"));
+// app.use(logger("dev"));
+app.use(logger("combined")); // for production
 app.use(express.json());
 app.use(cors()); // allow requests from all origins (front end)
 
@@ -29,16 +26,18 @@ app.use("/api/chats", require("./routes/api/chats"));
 
 // "catch all" route
 app.get("/*", function (req, res) {
-  // res.sendFile(path.join(__dirname, 'public', 'index.html'));
   res.status(404).json({ msg: "Not Found" });
 });
 
 const port = process.env.PORT || 3001;
 
-const { PORT = 8000 } = process.env;
-app.listen(PORT, () => {
-  console.log();
-  console.log(`  App running in port ${PORT}`);
-  console.log();
-  console.log(`  > Local: \x1b[36mhttp://localhost:\x1b[1m${PORT}/\x1b[0m`);
+// app.listen(port, () => {
+//   console.log();
+//   console.log(`  App running in port ${port}`);
+//   console.log();
+//   console.log(`  > Local: \x1b[36mhttp://localhost:\x1b[1m${PORT}/\x1b[0m`);
+// });
+
+app.listen(port, () => {
+  console.log(`App is now running on port ${port}`);
 });
