@@ -19,7 +19,7 @@
 
 To experience the features of ReactGPTBot, follow the links below:
 
-- **Deployed App**: (SOON)
+- **Deployed App**: [Here](https://reactgptbot.netlify.app/)
 - **Project Planning**: [Trello Board](https://trello.com/b/0EzkwDVg/reactgptbot-user-stories)
 
 ## Next Steps
