@@ -1,6 +1,7 @@
 import tokenService from "./tokenService";
 
-const API_URL = "http://localhost:8000/api/users/";
+const { VITE_API_URL } = import.meta.env;
+const API_URL = VITE_API_URL + "/users/";
 
 // user should be form data for signup
 function signup(user) {

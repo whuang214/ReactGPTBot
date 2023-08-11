@@ -10,8 +10,7 @@ require("./config/database");
 
 const app = express();
 
-// app.use(logger("dev"));
-app.use(logger("combined")); // for production
+app.use(logger("dev"));
 app.use(express.json());
 app.use(cors()); // allow requests from all origins (front end)
 

@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8000/api/chats/";
+const { VITE_API_URL } = import.meta.env;
+const API_URL = VITE_API_URL + "/chats/";
 
 import tokenService from "./tokenService";
 
