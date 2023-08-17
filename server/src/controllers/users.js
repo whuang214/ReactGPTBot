@@ -95,6 +95,11 @@ async function login(req, res) {
   }
 }
 
+async function testServer(req, res) {
+  // console.log(req.body, " <- req.body in request");
+  res.status(200).json({ message: "server is running" });
+}
+
 /*----- Helper Functions -----*/
 
 function createJWT(user) {
