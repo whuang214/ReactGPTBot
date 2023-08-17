@@ -10,6 +10,7 @@ const s3 = new S3();
 module.exports = {
   signup,
   login,
+  testServer,
 };
 
 // signup function
