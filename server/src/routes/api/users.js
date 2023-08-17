@@ -9,7 +9,7 @@ const upload = multer();
 /*---------- Public Routes ----------*/
 router.post("/signup", upload.single("avatar"), usersCtrl.signup);
 router.post("/login", usersCtrl.login);
-router.post("/test", usersCtrl.testServer);
+router.get("/test", usersCtrl.testServer);
 
 /*---------- Protected Routes ----------*/
 
