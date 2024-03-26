@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import { refreshChatContext } from "../Sidebar";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdChatBubbleOutline } from "react-icons/md";
@@ -18,6 +19,8 @@ export default function SidebarChat({
   const isCurrentChat = chat._id === currentChat?._id;
 
   const chatRef = useRef(null);
+
+  const { getChats } = useContext(refreshChatContext);
 
   // Set current chat when user clicks on chat
   async function handleChatClick() {
@@ -48,6 +51,7 @@ export default function SidebarChat({
     await chatService.renameChat(chat._id, { title: chatTitle });
 
     setIsEditing(false);
+    getChats();
   }
 
   // Close edit form when clicking outside of it (dont save changes)

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import { UserContext } from "../../App";
 
 import SidebarChatList from "./SidebarChatList/SidebarChatList";
@@ -10,6 +10,8 @@ import chatService from "../../utils/chatService";
 import { FaPlus } from "react-icons/fa";
 
 import styles from "./Sidebar.module.css";
+
+export const refreshChatContext = createContext();
 
 export default function Sidebar({ currentChat, setCurrentChat }) {
   const { user, handleLogout } = useContext(UserContext);
@@ -49,12 +51,14 @@ export default function Sidebar({ currentChat, setCurrentChat }) {
         <FaPlus /> New Chat
       </button>
 
-      <SidebarChatList
-        chats={chats}
-        currentChat={currentChat}
-        setCurrentChat={setCurrentChat}
-        onDeleteIconClick={toggleDeleteConfirmation}
-      />
+      <refreshChatContext.Provider value={{ getChats }}>
+        <SidebarChatList
+          chats={chats}
+          currentChat={currentChat}
+          setCurrentChat={setCurrentChat}
+          onDeleteIconClick={toggleDeleteConfirmation}
+        />
+      </refreshChatContext.Provider>
 
       <UserProfile
         user={user}

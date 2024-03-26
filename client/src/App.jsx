@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
