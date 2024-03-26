@@ -1,9 +1,6 @@
-const { Configuration, OpenAIApi } = require("openai");
+const { OpenAI } = require("openai");
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
 module.exports = {
   queryGPT,
@@ -13,21 +10,18 @@ module.exports = {
 // model can only be one of the following:
 // https://platform.openai.com/docs/models
 async function queryGPT(messages, model) {
-  // filter messages only have content and role
-  messages = messages.map((message) => {
-    return {
-      content: message.content,
-      role: message.role,
-    };
-  });
-  // console.log("messages: ", messages);
+  // Filter messages to only have content and role
+  messages = messages.map((message) => ({
+    content: message.content,
+    role: message.role,
+  }));
 
   try {
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: model,
       messages: messages,
     });
-    return response.data.choices[0].message;
+    return response.choices[0].message;
   } catch (error) {
     console.error("Error querying GPT:", error);
     console.error(error.message);

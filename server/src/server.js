@@ -12,7 +12,13 @@ const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(cors()); // allow requests from all origins (front end)
+
+// only allow requests from hosted react app and localhost (for development)
+corsOptions = {
+  origin: ["https://reactgptbot.netlify.app/", "http://localhost:5173"],
+};
+
+app.use(cors(corsOptions));
 
 // Configure the auth middleware
 // This decodes the jwt token, and assigns

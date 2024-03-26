@@ -4,8 +4,13 @@ const SECRET = process.env.SECRET;
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
 const { v4: uuidv4 } = require("uuid");
-const S3 = require("aws-sdk/clients/s3");
-const s3 = new S3();
+
+// Updated import statements for AWS SDK v3
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { Upload } = require("@aws-sdk/lib-storage");
+
+// Create an S3 client object
+const s3Client = new S3Client();
 
 module.exports = {
   signup,
@@ -13,50 +18,50 @@ module.exports = {
   testServer,
 };
 
+// Helper function to upload a file to S3
+async function uploadFileToS3(fileBuffer, bucketName, key) {
+  const upload = new Upload({
+    client: s3Client,
+    params: {
+      Bucket: bucketName,
+      Key: key,
+      Body: fileBuffer,
+    },
+  });
+
+  try {
+    const result = await upload.done();
+    console.log("Upload success", result);
+    return result.Location; // The URL of the uploaded file
+  } catch (err) {
+    console.log("Upload error", err);
+    throw new Error("File upload to S3 failed");
+  }
+}
+
 // signup function
 // req.body will contain the form data from Postman or from React
 async function signup(req, res) {
   let hasPhoto;
-  // console.log(req.body, req.file, " req.body", "req.file");
 
-  // if req.file is undefined, hasPhoto will be false, else true
-  !req.file ? (hasPhoto = false) : (hasPhoto = true);
-
-  // create a user based on the incoming data from the form
   const user = new User(req.body);
 
-  if (!hasPhoto) {
+  if (!req.file) {
     user.photoUrl =
       "https://sei-pupstagram.s3.amazonaws.com/reactChatBot/placeholders/placeholder-person-square.png";
-  }
-
-  if (hasPhoto) {
-    // make the filepath unique by adding a uuid to the filename
+  } else {
     const filePath = `reactChatBot/users/${user._id}/images/profile/${
       req.file.originalname
     }-${uuidv4()}`;
-
-    // create the object that we will send to S3
-    const params = {
-      Bucket: BUCKET_NAME,
-      Key: filePath,
-      Body: req.file.buffer,
-    };
-
     try {
-      // make the request to S3
-      const data = await s3.upload(params).promise();
-
-      console.log("===============================");
-      console.log(data, " <- data from aws");
-      console.log("===============================");
-
-      // Set the user's photoUrl to the S3 image URL
-      user.photoUrl = data.Location;
+      // Use the helper function to upload to S3
+      const photoUrl = await uploadFileToS3(
+        req.file.buffer,
+        BUCKET_NAME,
+        filePath
+      );
+      user.photoUrl = photoUrl;
     } catch (err) {
-      console.log("===============================");
-      console.log(err, " <- error during S3 upload");
-      console.log("===============================");
       return res.status(400).json({
         error: "Error during S3 upload, check your console",
       });
@@ -64,14 +69,10 @@ async function signup(req, res) {
   }
 
   try {
-    // Save the user to the database
     await user.save();
-    const token = createJWT(user); // make a token for the user
-    res.json({ token }); // send the token to the client
+    const token = createJWT(user);
+    res.json({ token });
   } catch (err) {
-    console.log("===============================");
-    console.log(err, " <- error during database saving");
-    console.log("===============================");
     res.status(400).json({
       error: "Error during database saving, check your console",
     });

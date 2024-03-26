@@ -59,7 +59,7 @@ async function createChat(req, res) {
     }
 
     const newChat = new ChatHistory({
-      userID: mongoose.Types.ObjectId(req.user._id.toString()),
+      userID: req.user._id,
       title: title,
       messages: [],
     });
@@ -151,7 +151,7 @@ async function deleteChat(req, res) {
     await Message.deleteMany({ _id: { $in: chat.messages } });
 
     // If checks pass, delete the chat
-    await ChatHistory.findByIdAndRemove(chatID);
+    await ChatHistory.findByIdAndDelete(chatID);
 
     res.status(200).json({ message: "Chat deleted successfully." });
   } catch (err) {
